@@ -1,6 +1,6 @@
 /// <reference types="cypress" />
 
-describe('example to-do app', () => {
+describe('recognition tests', () => {
   beforeEach(() => {
     // Cypress starts out with a blank slate for each test
     // so we must tell it to visit our website with the `cy.visit()` command.
@@ -18,7 +18,7 @@ describe('example to-do app', () => {
     })
     .then(async (imageUrl) => {
       const GraphicRecognizer = require('../../graphic-recognition')
-      const graphicRecognizer = new GraphicRecognizer()
+      let graphicRecognizer = new GraphicRecognizer()
       return await graphicRecognizer.recognizePieChartWithOneLine(imageUrl)
     })
     .then((pred) => {
@@ -60,8 +60,8 @@ describe('example to-do app', () => {
     })
   })
 
-  it('image 13', () => {
-    cy.get('[id="img13"]')
+  it('image 14', () => {
+    cy.get('[id="img14"]')
     .should('be.visible')
     .should('have.attr', 'src')
     .then((src) => {
@@ -70,10 +70,10 @@ describe('example to-do app', () => {
     .then(async (imageUrl) => {
       const GraphicRecognizer = require('../../graphic-recognition')
       const graphicRecognizer = new GraphicRecognizer()
-      return await graphicRecognizer.recognizePieChartWithTwoLines(imageUrl)
+      return await graphicRecognizer.recognizeChart3(imageUrl)
     })
     .then((pred) => {
-      expect(pred).equal('')
+      expect(pred).equal({ values: [ 33, 23, 23, 21, 5, 5, 4, 3 ] })
     })
   })
 })
