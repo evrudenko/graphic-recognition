@@ -1,10 +1,8 @@
-const { default: axios } = require('axios');
-const sharp = require('sharp');
-const tesseract = require('tesseract.js');
+const axios = require('axios')
+const sharp = require('sharp')
+const tesseract = require('tesseract.js')
 
 module.exports = class GraphicRecognizer {
-    // constructor() {}
-
     async getWorker() {
         if (typeof this._worker !== "undefined") {
             return this._worker
@@ -34,14 +32,15 @@ module.exports = class GraphicRecognizer {
         return { "firstLine": firstLine, "secondLine": secondLine }
     }
 
-    async recognizeChart3(imgUrl) {
+    async recognizeChart4(imgUrl, barsThreshold=215) {
         let worker = await this.getWorker()
-        await this.prepareInputChart3(imgUrl)
-        const { data: { text } } = await worker.recognize('temp-test.png', { rectangle: { top:0, left: 215, width: 250, height: 425 } })
+        const filename = 'temp-test.png'
+        await this._removeHorizontalBarsAndSave(imgUrl, filename, barsThreshold)
+        const { data: { text } } = await worker.recognize(filename, { rectangle: { top:0, left: 215, width: 250, height: 425 } })
         return { "values": text.trim().split(/\s+/) }
     }
 
-    async prepareInputChart3(imgUrl, barsThreshold=215) {
+    async _removeHorizontalBarsAndSave(imgUrl, filename, barsThreshold) {
         let response = await axios.get(imgUrl, { responseType: 'arraybuffer' })
         let { data, info } = await sharp(response.data).grayscale().threshold(128).raw().toBuffer({ resolveWithObject: true })
         // remove bars
@@ -76,6 +75,6 @@ module.exports = class GraphicRecognizer {
             }
         }
         // save result
-        await sharp(data, { raw: { width: info.width, height: info.height, channels: info.channels } }).toFile('temp-test.png')
+        await sharp(data, { raw: { width: info.width, height: info.height, channels: info.channels } }).toFile(filename)
     }
 }

@@ -2,7 +2,26 @@ const GraphicRecognizer = require('./graphic-recognition')
 let graphicRecognizer = new GraphicRecognizer()
 
 const start = async function() {
-    let resOneLinePieChart = await graphicRecognizer.recognizeChart3('http://localhost:3000/img14.png',)
+    // let img = gm('http://localhost:3000/img14.png').colorspace('gray').contrast(-3).threshold(30, true)
+    // img.write('ttt.png', (err) => {})
+    // img.toBuffer('PNG', (err, buff) => {
+    //     img.identify((err, value) => {
+    //         let str = new PNG()
+    //         str.end(buff)
+    //         str.on('parsed', buffer => {
+    //             console.log(buffer)
+    //             console.log(buffer.length, value.size.width, value.size.height, value)
+    //             console.log(buffer[30640], buffer[30641], buffer[30642], buffer[30643])
+    //             for (let i = 0; i < buffer.length; i+=4) {
+    //                 if (buffer[i+3] != 255) {
+    //                     console.log(i, buffer[i])
+    //                 }
+    //             }
+    //         })
+    //     })
+    // })
+        // .write('tt.png', (err) => {})
+    let resOneLinePieChart = await graphicRecognizer.recognizeChart4('http://localhost:3000/img14.png',)
     console.log('result:', resOneLinePieChart)
     // let request = require('request').defaults({ encoding: null });
     // var width, height, channels
