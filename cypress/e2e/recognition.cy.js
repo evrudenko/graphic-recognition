@@ -50,6 +50,21 @@ describe('recognition tests', () => {
     })
   })
 
+  it('image 13', {defaultCommandTimeout: 6000}, () => {
+    cy.get('[id="img13"]')
+    .should('be.visible')
+    .should('have.attr', 'src')
+    .then((src) => {
+      return'http://localhost:3000/' + src
+    })
+    .then((imageUrl) => {
+      return cy.task('recognizeChart3', imageUrl)
+    })
+    .then((pred) => {
+      expect(pred).to.deep.equal({ 'values': [ '88,9%', '30,22', '26,86'] })
+    })
+  })
+
   it('image 14', {defaultCommandTimeout: 6000}, () => {
     cy.get('[id="img14"]')
     .should('be.visible')

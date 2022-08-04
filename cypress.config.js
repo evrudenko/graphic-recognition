@@ -14,6 +14,10 @@ module.exports = defineConfig({
           const graphicRecognizer = new GraphicRecognizer()
           return await graphicRecognizer.recognizePieChartWithTwoLines(imageUrl)
         },
+        async recognizeChart3(imageUrl) {
+          const graphicRecognizer = new GraphicRecognizer()
+          return await graphicRecognizer.recognizeChart3(imageUrl)
+        },
         async recognizeChart4(imageUrl) {
           const graphicRecognizer = new GraphicRecognizer()
           return await graphicRecognizer.recognizeChart4(imageUrl)
