@@ -21,7 +21,7 @@ const start = async function() {
     //     })
     // })
         // .write('tt.png', (err) => {})
-    let resOneLinePieChart = await graphicRecognizer.recognizeChart4('http://localhost:3000/img14.png',)
+    let resOneLinePieChart = await graphicRecognizer.recognizeChart3('http://localhost:3000/img13.png',)
     console.log('result:', resOneLinePieChart)
     // let request = require('request').defaults({ encoding: null });
     // var width, height, channels
